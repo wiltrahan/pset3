@@ -23,14 +23,16 @@ bool search(int value, int values[], int n) {
 
     while(end >= start) {
         int center = (start + end) / 2;
-
+        //if value is at begin/center/end of array, return true
         if(value == values[start] || value == values[center] || value == values[end]) {
             return true;
         }
-
+        //if center of sorted array is less than whats being searched for
+        //the new start point will be at the center + 1
         if(values[center] < value) {
             start = center + 1;
         }
+        //if center is greater, end point is center - 1
         else if(values[center] > value) {
             end = center - 1;
         }
@@ -39,19 +41,24 @@ bool search(int value, int values[], int n) {
     return false;
 }
 
-// Your implementation must return true if value is in values and false if value is not in values.
-
 /**
  * Sorts array of n values.
  */
 void sort(int values[], int n)
 {
     // TODO: implement a sorting algorithm
-    for(int i = 0; i < n - 2; i++) {
-        // int min = i;
-        if(values[i] > values[i + 1]) {
-            values[i] = values[i + 1];
+    //Insertion sort...
+    for(int i = 0; i < n; i++) {
+
+        int key = values[i];
+        int j = i - 1;
+
+        while(j >= 0 && values[j] > key) {
+            values[j + 1] = values[j];
+            j = j - 1;
         }
+
+        values[j + 1] = key;
     }
     return;
 }
