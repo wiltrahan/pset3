@@ -209,6 +209,25 @@ void draw(void)
 bool move(int tile)
 {
     // TODO
+    // int tileLocation;
+    int blank = 0;
+    int swap;
+    for(int i = 0; i < d; i++) {
+        for(int j = 0; j < d; j++) {
+
+            if(board[i][j] == tile) {
+
+                if(board[i + 1][j] == blank && board[i][j + 1] == blank) {
+                    swap = tile;
+                    blank = swap;
+                    tile = blank;
+                    printf("worked");
+                    return true;
+                }
+            }
+        }
+    }
+
     return false;
 }
 
