@@ -157,17 +157,22 @@ void greet(void)
 void init(void)
 {
     // TODO
-
     int num = d * d - 1;
+
     for(int i = 0; i < d; i++) {
 
       for(int j = 0; j < d; j++) {
 
-
           board[i][j] = num;
+
+          if(d % 2 == 0 && num == 2) {
+              board[i][j] = 1;
+          }
+          else if(d % 2 == 0 && num == 1) {
+              board[i][j] = 2;
+          }
           num--;
       }
-
     }
 }
 
@@ -182,12 +187,15 @@ void draw(void)
     for(int i = 0; i < d; i++) {
         for(int j = 0; j < d; j++) {
 
-            if(board[i][j] == blank) {
-                printf("_");
+            if(board[i][j] > 0 && board[i][j] < 10) {
+                printf(" %i ", board[i][j]);
+            }
+
+            else if(board[i][j] == blank) {
+                printf(" _ ");
             } else {
                 printf("%i ", board[i][j]);
             }
-
 
         }
     printf("\n");
