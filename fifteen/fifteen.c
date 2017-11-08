@@ -211,23 +211,39 @@ bool move(int tile)
     // TODO
     // int tileLocation;
     int blank = 0;
-    int swap;
+    // int swap;
     for(int i = 0; i < d; i++) {
         for(int j = 0; j < d; j++) {
 
             if(board[i][j] == tile) {
 
-                if(board[i + 1][j] == blank && board[i][j + 1] == blank) {
-                    swap = tile;
-                    blank = swap;
-                    tile = blank;
-                    printf("worked");
+                if(board[i][j + 1] == blank && j + 1 < d) {
+                    board[i][j + 1] = tile;
+                    board[i][j] = blank;
+                    // printf("1worked");
+                    return true;
+                }
+                else if(board[i + 1][j] == blank && i + 1 < d) {
+                    board[i + 1][j] = tile;
+                    board[i][j] = blank;
+                    // printf("2worked");
+                    return true;
+                }
+                else if(board[i][j - 1] == blank && j - 1 >= 0) {
+                    board[i][j - 1] = tile;
+                    board[i][j] = blank;
+                    // printf("3worked");
+                    return true;
+                }
+                else if(board[i - 1][j] == blank && i - 1 >= 0) {
+                    board[i - 1][j] = tile;
+                    board[i][j] = blank;
+                    // printf("4worked");
                     return true;
                 }
             }
         }
     }
-
     return false;
 }
 
