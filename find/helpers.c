@@ -17,6 +17,7 @@ bool search(int value, int values[], int n) {
         return false;
     }
     // TODO: implement a searching algorithm
+    //Binary Search...
     //start = left; end = right
     int start = 0;
     int end = n - 1;
