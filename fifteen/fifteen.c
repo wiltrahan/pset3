@@ -117,11 +117,11 @@ int main(int argc, string argv[])
         if (!move(tile))
         {
             printf("\nIllegal move.\n");
-            usleep(500000);
+            usleep(200000);
         }
 
         // sleep thread for animation's sake
-        usleep(500000);
+        usleep(200000);
     }
 
     // close log
@@ -154,9 +154,11 @@ void greet(void)
  * Initializes the game's board with tiles numbered 1 through d*d - 1
  * (i.e., fills 2D array with values but does not actually print them).
  */
-void init(void)
-{
+void init(void) {
     // TODO
+    //num starts at (for example) 8, if dimension entered is 3
+    //everytime both loops run, num is subtracted by 1, filling array in order from 8 to 1
+
     int num = d * d - 1;
 
     for(int i = 0; i < d; i++) {
@@ -164,7 +166,7 @@ void init(void)
       for(int j = 0; j < d; j++) {
 
           board[i][j] = num;
-
+        //if user entered even number the 1 and 2 must switch places
           if(d % 2 == 0 && num == 2) {
               board[i][j] = 1;
           }
@@ -179,9 +181,9 @@ void init(void)
 /**
  * Prints the board in its current state.
  */
-void draw(void)
-{
+void draw(void) {
     // TODO
+    //prints board, keeps everything lined up straight based on numbers/spaces needed
     int blank = 0;
 
     for(int i = 0; i < d; i++) {
@@ -196,7 +198,6 @@ void draw(void)
             } else {
                 printf("%i ", board[i][j]);
             }
-
         }
     printf("\n");
     }
@@ -206,17 +207,16 @@ void draw(void)
  * If tile borders empty space, moves tile and returns true, else
  * returns false.
  */
-bool move(int tile)
-{
+bool move(int tile) {
     // TODO
-    // int tileLocation;
     int blank = 0;
     // int swap;
     for(int i = 0; i < d; i++) {
         for(int j = 0; j < d; j++) {
-
+            //finds the tile entered on the board
             if(board[i][j] == tile) {
-
+            //if whats found is in bounds of array &
+            //touching a blank space run following
                 if(board[i][j + 1] == blank && j + 1 < d) {
                     board[i][j + 1] = tile;
                     board[i][j] = blank;
@@ -241,6 +241,9 @@ bool move(int tile)
                     // printf("4worked");
                     return true;
                 }
+                else {
+                    return false;
+                }
             }
         }
     }
@@ -251,8 +254,22 @@ bool move(int tile)
  * Returns true if game is won (i.e., board is in winning configuration),
  * else false.
  */
-bool won(void)
-{
-    // TODO
+bool won(void) {
+
+    int order = 1;
+    //keep running track of the order,
+    //starts at 1 and goes over array index by index
+    //once order equals d(example; order = 9)
+    //and final index(if d is 9, last index is [2][2]) is blank(0) return true
+    for(int i = 0; i < d; i++) {
+        for(int j = 0; j < d; j++) {
+            if(board[i][j] == order) {
+                order++;
+                if(order == d * d && board[d - 1][d - 1] == 0) {
+                    return true;
+                }
+            }
+        }
+    }
     return false;
 }
